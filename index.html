@@ -1,31 +1,28 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f7d8c7">
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./css/style.css"><title>绒绒星球 v3 · 电子萌宠</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#ead1bd">
+  <title>绒绒星球 v4 · 五位小伙伴</title><link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./css/style.css"><link rel="stylesheet" href="./css/animations.css">
 </head>
-<body><div class="game" data-time="day">
-  <header class="hud"><button class="brand" data-open="profile"><span>🐾</span><b>绒绒星球</b></button><div class="hud-values"><button class="hud-pill" data-open="checkin">📅 <span id="streakTop">0</span></button><span class="hud-pill">💗 <b id="loveTop">12</b></span><span class="hud-pill">🪙 <b id="coinTop">120</b></span></div></header>
-  <main>
-    <section class="screen active" id="roomScreen"><div class="room" id="room"><div class="wall-glow"></div>
-      <div class="window furniture" data-furniture="window"><div class="sky"><i class="celestial"></i><i class="cloud c1"></i><i class="cloud c2"></i></div><span class="frame-v"></span><span class="frame-h"></span></div>
-      <button class="sofa furniture" data-furniture="sofa"><i></i><i></i><span>🧸</span></button><button class="plant furniture" data-furniture="plant"><span class="leaves">🌿</span><i></i></button>
-      <button class="bed furniture" data-furniture="bed"><span>☁️</span><i></i></button><button class="toy-basket furniture" data-furniture="toys"><span>🎾</span><span>🪄</span><i></i></button>
-      <button class="bowl food-bowl furniture" data-furniture="food"><span>🍖</span></button><button class="bowl water-bowl furniture" data-furniture="water"><span>💧</span></button><div class="rug"></div>
-      <div class="pet-label"><b id="petName">团团</b><span id="petMood">期待见面</span></div><div class="speech" id="speech" role="status">领养一只小伙伴吧～</div>
-      <div class="pet-world" id="petWorld"><div class="pet-stage idle" id="petStage" data-pose="stand"><div class="pet-art" id="petArt"></div><button class="hitbox hit-head" data-body-action="head" aria-label="摸头"></button><button class="hitbox hit-face" data-body-action="face" aria-label="捏脸"></button><button class="hitbox hit-body" data-body-action="belly" aria-label="摸肚子"></button></div></div><div class="room-shade"></div>
-      <div class="needs"><button data-need="hunger">🍗<i><em id="hungerBar"></em></i></button><button data-need="thirst">💧<i><em id="thirstBar"></em></i></button><button data-need="fun">🎈<i><em id="funBar"></em></i></button><button data-need="clean">🫧<i><em id="cleanBar"></em></i></button><button data-need="energy">🌙<i><em id="energyBar"></em></i></button></div>
-    </div><div class="action-dock" id="actionDock"><button data-action="hug"><span>🤗</span><small>抱抱</small></button><button data-action="highfive"><span>🖐️</span><small>击掌</small></button><button data-action="chin"><span>🤏</span><small>挠下巴</small></button><button data-action="feed"><span>🍓</span><small>喂食</small></button><button data-action="water"><span>🥛</span><small>喝水</small></button><button data-action="ball"><span>🎾</span><small>玩球</small></button><button data-action="wand"><span>🪄</span><small>玩具</small></button><button data-action="brush"><span>🪮</span><small>梳毛</small></button><button data-action="wash"><span>🫧</span><small>洗澡</small></button><button data-action="dry"><span>💨</span><small>吹干</small></button><button data-action="sleep"><span>🛏️</span><small>睡觉</small></button><button data-action="call"><span>📣</span><small>叫名字</small></button></div></section>
-    <section class="screen panel-screen" id="wardrobeScreen"><div class="screen-title"><div><small>今日造型</small><h1>魔法衣橱 🎀</h1></div><button class="round" data-open="profile">🐾</button></div><div class="dress-stage"><div id="wardrobePet"></div></div><div class="tabs" id="wardrobeTabs"><button class="active" data-cat="hat">帽子</button><button data-cat="clothes">衣服</button><button data-cat="accessory">配饰</button></div><div class="item-grid" id="wardrobeItems"></div></section>
-    <section class="screen panel-screen" id="shopScreen"><div class="screen-title"><div><small>给小家伙挑礼物</small><h1>绒绒小铺 🛍️</h1></div><span class="coin-card">🪙 <b id="shopCoins">120</b></span></div><div class="tabs" id="shopTabs"><button class="active" data-cat="hat">帽子</button><button data-cat="clothes">衣服</button><button data-cat="accessory">配饰</button></div><div class="item-grid" id="shopItems"></div></section>
-    <section class="screen panel-screen" id="albumScreen"><div class="screen-title"><div><small>一起长大的证据</small><h1>回忆与成就 📸</h1></div><button class="round" data-open="checkin">🎁</button></div><div class="album-grid" id="albumGrid"></div><h2 class="sub-title">成就徽章</h2><div class="achievement-grid" id="achievementGrid"></div></section>
+<body><div class="game-shell" id="gameShell">
+  <main class="home-screen active" id="homeScreen">
+    <section class="room" id="room" aria-label="绒绒们的暖光房间">
+      <div class="room-bg" aria-hidden="true"><span class="window"></span><span class="sunbeam"></span><span class="shelf"></span><span class="bed"></span><span class="rug"></span></div>
+      <header class="topbar">
+        <button class="player-card glass" data-panel="profile"><span class="avatar">☁</span><span><b>Lv. <i id="level">12</i></b><em><u id="xpBar"></u></em></span></button>
+        <button class="coin-card glass" data-panel="shop"><span>◉</span><b id="coins">1280</b><i>＋</i></button>
+        <nav class="quick-actions" aria-label="快捷功能"><button data-action="camera" aria-label="相机">📷</button><button data-panel="mail" aria-label="邮件">✉<i class="badge">1</i></button><button data-panel="settings" aria-label="设置">⚙</button></nav>
+      </header>
+      <nav class="side-nav" aria-label="房间功能"><button class="active" data-panel="home"><span>⌂</span>家园</button><button data-panel="pets"><span>🐾</span>萌宠</button><button data-panel="bag"><span>👜</span>背包</button><button data-panel="shop"><span>▣</span>商店</button></nav>
+      <div class="pet-lineup" id="petLineup" aria-label="五位绒绒伙伴"></div><div class="speech-bubble" id="speech" role="status" aria-live="polite"></div>
+    </section>
+    <section class="life-strip" id="lifeStrip" aria-label="伙伴生活场景"></section>
   </main>
-  <nav class="bottom-nav"><button class="active" data-screen="roomScreen"><span>🏡</span><small>小屋</small></button><button data-screen="wardrobeScreen"><span>🎀</span><small>衣橱</small></button><button data-screen="shopScreen"><span>🛍️</span><small>商店</small></button><button data-screen="albumScreen"><span>📸</span><small>相册</small></button></nav>
+  <section class="page" id="tasksScreen"><header><button data-back>‹</button><div><small>每天一点点</small><h1>今日任务</h1></div></header><div class="content-grid" id="taskList"></div></section>
+  <section class="page" id="exploreScreen"><header><button data-back>‹</button><div><small>一起去看看</small><h1>星球探索</h1></div></header><div class="explore-hero"><span>🌿</span><h2>叶光小径</h2><p>五位伙伴会带回不同的发现。</p><button class="primary" id="exploreBtn">出发探索</button></div></section>
+  <section class="page" id="archiveScreen"><header><button data-back>‹</button><div><small>慢慢了解彼此</small><h1>伙伴图鉴</h1></div></header><div class="archive-grid" id="archiveGrid"></div></section>
+  <nav class="bottom-nav" aria-label="主导航"><button class="active" data-screen="homeScreen"><span>⌂</span>家园</button><button data-screen="tasksScreen"><span>✓</span>任务</button><button data-screen="exploreScreen"><span>◇</span>探索</button><button data-screen="archiveScreen"><span>▧</span>图鉴</button></nav>
 </div>
-<div class="modal" id="adoptModal"><div class="sheet adopt-sheet"><i class="handle"></i><small>欢迎来到绒绒星球</small><h2>选择你的生活伙伴</h2><p>每只小家伙都有不同性格，它会记住你们一起度过的日子。</p><div class="pet-grid" id="adoptGrid"></div><div class="naming"><input id="nameInput" maxlength="8" placeholder="给它取个名字"><button class="primary" id="adoptBtn">带回家</button></div></div></div>
-<div class="modal" id="choiceModal"><div class="sheet compact"><i class="handle"></i><div class="sheet-head"><div><small id="choiceKicker">选择</small><h2 id="choiceTitle">选择物品</h2></div><button class="close" data-close="choiceModal">×</button></div><div class="choice-grid" id="choiceGrid"></div></div></div>
-<div class="modal" id="checkinModal"><div class="sheet compact"><i class="handle"></i><div class="sheet-head"><div><small>每天回来看看它</small><h2>七日签到 🎁</h2></div><button class="close" data-close="checkinModal">×</button></div><div class="week" id="weekGrid"></div><button class="primary wide" id="checkinBtn">今日签到</button></div></div>
-<div class="modal" id="profileModal"><div class="sheet compact"><i class="handle"></i><div class="sheet-head"><div><small>宠物档案</small><h2 id="profileName">团团</h2></div><button class="close" data-close="profileModal">×</button></div><div class="profile-pet" id="profilePet"></div><div class="profile-lines" id="profileLines"></div><button class="text-danger" id="resetBtn">重新领养</button></div></div>
-<div class="toast" id="toast"></div><div class="achievement-popup" id="achievementPopup"><span id="achievementIcon">🏆</span><div><small>解锁新成就</small><b id="achievementTitle">第一次见面</b></div></div>
-<script src="./js/pets.js" defer></script><script src="./js/items.js" defer></script><script src="./js/dialogue.js" defer></script><script src="./js/animations.js" defer></script><script src="./js/app.js" defer></script>
+<div class="modal" id="panelModal" aria-hidden="true"><div class="sheet"><button class="close" data-close>×</button><div id="panelContent"></div></div></div><div class="toast" id="toast" role="status"></div>
+<script src="./js/pets.js" defer></script><script src="./js/dialogue.js" defer></script><script src="./js/migration.js" defer></script><script src="./js/state.js" defer></script><script src="./js/relationships.js" defer></script><script src="./js/reactions.js" defer></script><script src="./js/behaviors.js" defer></script><script src="./js/animations.js" defer></script><script src="./js/app.js" defer></script>
 </body></html>
