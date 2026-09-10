@@ -1,0 +1,14 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local archives and temporary files
+*.zip
+*.log
+*.tmp
+
+# Local test artifacts
+node_modules/
+coverage/
