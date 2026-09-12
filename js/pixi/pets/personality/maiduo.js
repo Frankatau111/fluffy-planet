@@ -1,0 +1,21 @@
+(function(){
+'use strict';
+window.FluffyPersonalities.register({
+  id:'maiduo',name:'麦朵',traits:{clinginess:58,curiosity:64,mischief:16,reserve:52},activeHours:['morning','day','evening'],likedInteractions:['clean','petHead'],dislikedInteractions:['play'],representativeAction:'整理大家散落的东西',
+  behaviorWeights:{organize:96,checkRoom:88,count:82,collect:70,inspectBag:76,watchFriends:62},behaviorAnimations:{organize:'organize',checkRoom:'organize',count:'organize',collect:'organize',inspectBag:'organize',watchFriends:'organize'},
+  eventDialogue:{organize:'这个放第二格，那个要留给牙牙啾。',checkRoom:'窗户、食盆、玩具篮……都检查好了。',count:'一、二、三……奇怪，怎么又少了一块饼干。',collect:'这片叶子很完整，可以放进收藏夹。',inspectBag:'我确认一下包里的备用清单。',watchFriends:'大家都在视线里，我就放心了。'},
+  interactionDialogue:{liked:['谢谢配合，房间一下就整齐了。','摸一下也可以，我已经排进日程。'],disliked:['玩可以，但结束后必须一起收拾。','请不要把刚归类好的东西踢散。']},
+  dialogue:{
+    greeting:['等一下，我先点个名。','你回来得正好。','我记得今天有安排。','鞋子放好了吗？欢迎回来。','大家都在，我也就放心了。'],
+    time:['早上的清单最清楚。','午后适合整理小东西。','下午要检查一次房间。','天暗前得把玩具收好。','晚安之前，还有一件事。'],
+    needs:['饼干库存少了一块。','记得喝水——我也记得。','空闲也要安排得整齐。','灰尘跑到角落去了。','困意不在计划里……但来了。'],
+    petHead:['谢谢，等我记一下。','可以，但我还在数东西。','这会让我安心一点。','轻一点，帽子要歪了。','好啦，现在轮到我照顾你。'],
+    petSpecial:['包里不是秘密，是分类。','小心，里面有一片脆叶子。','背带不能拿掉。','我记得我带了……找到了。','请不要翻乱编号。'],
+    feed:['我就知道我带了饼干。','先分成五份。','牙牙啾，这是今天第三块。','糖纸也要收好。','这份留给晚一点。'],
+    play:['玩完要一起收。','我来记分。','不要把球踢到架子后面。','可以玩十分钟。好吧，十五分钟。','我也不是不会玩。'],
+    repeat:['第二次，我记下了。','还有事情，不过可以再一下。','第三次了喔。','你的坚持超出日程。','好吧，今天这项延长。'],
+    relationship:['我会先观察你是否可靠。','你的习惯我大概记住了。','需要什么可以来找我。','你照顾大家，我照顾你。','这个收藏只给你看。'],
+    idle:['这颗石头应该放在第二格。','谁把玩具留在这里？','我检查一下包。','树果的毯子要盖好。','桃可的发夹又在地上。']
+  }
+});
+})();

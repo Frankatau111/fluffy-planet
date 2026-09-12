@@ -6,9 +6,10 @@ const app=read('js/app.js');
 const reaction=read('js/reactions.js');
 const config=read('js/pixi/pets/nuotuan/config.js');
 const state=read('js/pixi/pets/nuotuan/state.js');
-const personality=read('js/pixi/pets/nuotuan/personality.js');
+const personality=read('js/pixi/pets/personality/nuotuan.js');
+const personalityCore=read('js/pixi/pets/personality/core.js');
 const animation=read('js/pixi/animation.js');
-const scripts=['vendor/pixi.min.js','js/pixi/pets/nuotuan/config.js','js/pixi/pets/nuotuan/state.js','js/pixi/pets/nuotuan/personality.js','js/pixi/scene.js','js/pixi/spriteManager.js','js/pixi/animation.js','js/pixi/app.js'];
+const scripts=['vendor/pixi.min.js','js/pixi/pets/personality/core.js','js/pixi/pets/personality/nuotuan.js','js/pixi/pets/personality/taoke.js','js/pixi/pets/personality/yayaya.js','js/pixi/pets/personality/maiduo.js','js/pixi/pets/personality/shuguo.js','js/pixi/pets/nuotuan/config.js','js/pixi/pets/nuotuan/state.js','js/pixi/scene.js','js/pixi/spriteManager.js','js/pixi/animation.js','js/pixi/app.js'];
 
 let last=-1;
 for(const script of scripts){
@@ -31,8 +32,8 @@ for(const mode of ['idle','happy','sleep','pet','eat','sad','excited'])assert(st
 assert(animation.includes('3+Math.random()*5'),'blink interval is not randomized to 3–8 seconds');
 for(const trait of ['clinginess:90','curiosity:70','mischief:40','reserve:20'])assert(personality.includes(trait),`personality trait ${trait} is missing`);
 for(const behavior of ['approach','explore','sneakToy','lookWindow','findTreasure','groom','wait'])assert(personality.includes(`${behavior}:`),`personality behavior ${behavior} is missing`);
-for(const memory of ['lastSeen','lastInteraction','lastFeed'])assert(personality.includes(memory),`memory field ${memory} is missing`);
-assert(personality.includes("timeZone:'Asia/Shanghai'"),'personality dialogue is not based on China time');
+for(const memory of ['lastSeen','lastInteraction','lastFeed'])assert(personalityCore.includes(memory),`memory field ${memory} is missing`);
+assert(personalityCore.includes("timeZone:'Asia/Shanghai'"),'personality dialogue is not based on China time');
 assert(personality.includes("fluffy_nuotuan_memory_v1"),'personality memory must use its own storage key');
 assert(!personality.includes('fluffy_planet_v4'),'personality layer must not write the existing game save');
 assert(config.includes('frames:'),'asset states do not support frame arrays');

@@ -1,63 +1,8 @@
 (function(){
-const D={
-nutuan:{
- greeting:['你回来啦……','我有乖乖等你。','可以再坐一会儿嘛？','你来了，房间就不空了。','今天也靠近一点点。'],
- time:['早上好……声音轻一点点。','阳光暖暖的，适合一起发呆。','下午也不要走太快喔。','天要黑了，可以挨着你吗？','晚安之前，再陪我一小会儿。'],
- needs:['肚子轻轻叫了一下……','水杯可以放近一点吗？','有一点无聊，但你在就好。','毛毛沾灰了……不要开大水声。','眼睛快要自己合上啦。'],
- petHead:['嘿嘿……','这里也喜欢。','你的手很暖。','再慢一点点。','我把耳朵放松啦。'],
- petSpecial:['云朵耳会记住你的手。','这里……可以再摸一下。','耳朵痒痒的，但很舒服。','轻轻的，我不害怕。','它们在替我说喜欢。'],
- feed:['牛奶的味道像晚安。','我会慢慢吃完的。','可以分一半给你。','谢谢……肚子暖了。','饼干屑要藏进枕头吗？'],
- play:['我先看你玩，好不好？','不要突然冲过来喔。','我追到啦……大概。','玩累了就靠着你。','这个球没有很大声。'],
- repeat:['还可以再摸一次。','这里也喜欢……','你没有要停，对吧？','我靠近一点，会更方便。','……没有了吗？'],
- relationship:['我还在学着相信你。','你的脚步声，我认得了。','有你在，我胆子大一点。','今天也想跟你待在一起。','那就再晚一点点睡。'],
- idle:['这个枕头分你一角。','我本来已经要睡了。','被窝里还留着位置。','我可以安静地陪你。','靠一下……就一下。']},
-taoke:{
- greeting:['等等等等——你终于来啦！','你刚刚看到我这个角度了吗？','先别说话，看我的新姿势。','你迟到了，但我今天很好看。','欢迎回来，审美搭档。'],
- time:['早晨的光很适合拍侧脸。','中午出门要选对颜色。','下午是整理尾巴时间。','晚霞跟我的尾尖很搭。','夜里也要漂亮地打哈欠。'],
- needs:['零食要好看，也要好吃。','口渴会影响我的状态。','无聊！我们制造点剧情。','我的毛沾到灰了，救命。','美容觉也是正经事。'],
- petHead:['可以摸。','方向还算正确。','刘海不要压扁！','嗯，这次手法不错。','停，我要先照一下镜子。'],
- petSpecial:['尾巴是艺术品，轻点！','等等，你刚刚是不是摸反了！','别把桃瓣梳成蒲公英。','尾尖可以，根部不行。','它蓬起来不是给你揉乱的。'],
- feed:['先拍照，再吃。','这颗桃子很懂我的配色。','味道过关，摆盘待改进。','我只尝一口……再一口。','零食拿来，我们再谈失踪的事。'],
- play:['看好了，我只示范一次！','捉迷藏我从来没输过。','这个球的颜色可以换吗？','追我呀——抓不到！','游戏也要有登场动作。'],
- repeat:['可以摸，但是别摸乱。','第二次了，你有在数吗？','我感觉发型正在失去秩序。','住手，我要抢救尾巴。','再来我就背对你……偷看。'],
- relationship:['我们还在审美磨合期。','你夸得很准确，可以加分。','这件事只告诉你一个人。','你失踪好久，我没有生气。','我们的审美友谊保住了。'],
- idle:['镜子呢？我刚才那个表情绝了。','我从边上探头会不会更有戏？','尾巴转一圈，完美。','这里需要一个闪亮登场。','我没躲，只是在等你找。']},
-yayajiu:{
- greeting:['啾！！！','来了！','开玩！','你！终于！','冲吗？'],
- time:['早！跑！','太阳。可以追。','中午。吃。','天黑。继续。','困。不认。'],
- needs:['饿。','非常饿。','水。大杯。','无聊。撞点什么？','眼睛关了。不是睡。'],
- petHead:['啾？','摸摸赛跑！','再快！','轮到我啄你。','头毛歪了。帅。'],
- petSpecial:['呆毛！信号满格！','翅膀不是手。','扑腾！','这里一摸就想冲。','看不见。但是帅。'],
- feed:['你的？','现在是我的了。','蛋糕！','一口。没了。','麦朵没看见吧？'],
- play:['再来！','冲——！','够不到。跳！','撞到了。计划内。','我赢了？我赢了！'],
- repeat:['一下！','两下！','三下！开赛！','越摸越快！','停？不许停！'],
- relationship:['你是谁？有吃的吗？','认识了。开玩。','队友！','最强搭档！','我的一口。分你半口。'],
- idle:['发现目标！','啄一下。','滑倒。没事。','睡五秒。','继续！']},
-maiduo:{
- greeting:['等一下，我先点个名。','你回来得正好。','我记得今天有安排。','鞋子放好了吗？欢迎回来。','大家都在，我也就放心了。'],
- time:['早上的清单最清楚。','午后适合整理小东西。','下午要检查一次房间。','天暗前得把玩具收好。','晚安之前，还有一件事。'],
- needs:['饼干库存少了一块。','记得喝水——我也记得。','空闲也要安排得整齐。','灰尘跑到角落去了。','困意不在计划里……但来了。'],
- petHead:['谢谢，等我记一下。','可以，但我还在数东西。','这会让我安心一点。','轻一点，帽子要歪了。','好啦，现在轮到我照顾你。'],
- petSpecial:['包里不是秘密，是分类。','小心，里面有一片脆叶子。','背带不能拿掉。','我记得我带了……找到了。','请不要翻乱编号。'],
- feed:['我就知道我带了饼干。','先分成五份。','牙牙啾，这是今天第三块。','糖纸也要收好。','这份留给晚一点。'],
- play:['玩完要一起收。','我来记分。','不要把球踢到架子后面。','可以玩十分钟。好吧，十五分钟。','我也不是不会玩。'],
- repeat:['第二次，我记下了。','还有事情，不过可以再一下。','第三次了喔。','你的坚持超出日程。','好吧，今天这项延长。'],
- relationship:['我会先观察你是否可靠。','你的习惯我大概记住了。','需要什么可以来找我。','你照顾大家，我照顾你。','这个收藏只给你看。'],
- idle:['这颗石头应该放在第二格。','谁把玩具留在这里？','我检查一下包。','树果的毯子要盖好。','桃可的发夹又在地上。']},
-shuguo:{
- greeting:['……嗯？','听到了。','你来了。','坐吧。','这里有位置。'],
- time:['早。再躺会儿。','今天风很好。','下午……很长。','天暗了。安静。','晚安。先别走。'],
- needs:['叶子吃完了。','水……在那边吗？','无聊也挺安静。','该洗了。慢慢来。','困。很正常。'],
- petHead:['嗯。','可以。','再轻一点。','很暖。','我没睡。'],
- petSpecial:['耳朵会接住风。','这里容易困。','树冠乱了也没关系。','再摸就睡着了。','……已经睡了。'],
- feed:['叶子。谢谢。','梨也可以。','慢慢吃。','留一片明天。','味道像秋天。'],
- play:['看球。','看你。','一定要跑吗？','我负责等你回来。','好吧。走三步。'],
- repeat:['嗯。','还在摸。','要睡了。','真的要睡了。','……呼。'],
- relationship:['先坐远一点。','安静的人，不讨厌。','靠近也可以。','不用说话。','我在你旁边睡。'],
- idle:['适合躺着。','这片叶子像云。','刚才只是不想动。','爬到这里就不下去了。','风来了。睡吧。']}
-};
-Object.values(D).forEach(groups=>Object.entries(groups).forEach(([kind,lines])=>groups[kind]=lines.map((text,i)=>({id:`${kind}-${i}`,text,weight:i===0?.65:1}))));
-function groupFor(context){if(context.repeat>=4)return'repeat';if(context.action==='petSpecial')return'petSpecial';if(['petHead','petCheek','petBelly'].includes(context.action))return'petHead';if(context.action==='feed')return'feed';if(['play','clean','sleep'].includes(context.action))return context.action==='play'?'play':'needs';if(context.relationship)return'relationship';if(context.action==='idle')return'idle';return context.time?'time':'greeting'}
-function pick(petId,context,recent=[]){const groups=D[petId]||D.nutuan;const pool=groups[groupFor(context)]||groups.greeting;let candidates=pool.filter(x=>!recent.includes(`${petId}-${x.id}`));if(!candidates.length)candidates=pool;const total=candidates.reduce((n,x)=>n+x.weight,0);let cursor=Math.random()*total;const chosen=candidates.find(x=>(cursor-=x.weight)<=0)||candidates[0];return{id:`${petId}-${chosen.id}`,text:chosen.text}}
-function count(petId){return Object.values(D[petId]||{}).reduce((n,a)=>n+a.length,0)}window.FluffyDialogue={D,pick,count,total:PETSafe()};function PETSafe(){return Object.keys(D).reduce((n,id)=>n+count(id),0)}
+'use strict';
+const personalities=window.FluffyPersonalities;
+const D=Object.fromEntries(personalities.all().map(config=>[config.id,Object.fromEntries(Object.entries(config.dialogue).map(([group,lines])=>[group,lines.map((text,index)=>({id:`${group}-${index}`,text,weight:1}))]))]));
+function pick(petId,context={},recent=[]){return personalities.dialogue(petId,context,recent)}
+function count(petId){return personalities.count(petId)}
+window.FluffyDialogue={D,pick,count,total:personalities.total()};
 })();

@@ -1,0 +1,21 @@
+(function(){
+'use strict';
+window.FluffyPersonalities.register({
+  id:'yayajiu',name:'牙牙啾',traits:{clinginess:62,curiosity:76,mischief:91,reserve:5},activeHours:['morning','day','evening'],likedInteractions:['play','feed','petSpecial'],dislikedInteractions:['sleep'],representativeAction:'冲刺抢到第一个玩具',
+  behaviorWeights:{dash:98,jump:92,peck:82,forage:78,race:88,sneakSnack:76},behaviorAnimations:{dash:'dash',jump:'jump',peck:'jump',forage:'dash',race:'dash',sneakSnack:'jump'},
+  eventDialogue:{dash:'让开让开——牙牙啾号出发！',jump:'差一点够到！再跳一次！',peck:'啄一下，确认不是陷阱。',forage:'地上有东西！可能能吃！',race:'比赛开始！你还没准备也算开始！',sneakSnack:'我没有偷吃，是零食先靠近我的。'},
+  interactionDialogue:{liked:['再来！这次我要更快！','好！你正式加入牙牙啾队！'],disliked:['现在睡？不行，我还没跑完。','闭眼五秒可以，睡觉不行。']},
+  dialogue:{
+    greeting:['啾！！！','来了！','开玩！','你！终于！','冲吗？'],
+    time:['早！跑！','太阳。可以追。','中午。吃。','天黑。继续。','困。不认。'],
+    needs:['饿。','非常饿。','水。大杯。','无聊。撞点什么？','眼睛关了。不是睡。'],
+    petHead:['啾？','摸摸赛跑！','再快！','轮到我啄你。','头毛歪了。帅。'],
+    petSpecial:['呆毛！信号满格！','翅膀不是手。','扑腾！','这里一摸就想冲。','看不见。但是帅。'],
+    feed:['你的？','现在是我的了。','蛋糕！','一口。没了。','麦朵没看见吧？'],
+    play:['再来！','冲——！','够不到。跳！','撞到了。计划内。','我赢了？我赢了！'],
+    repeat:['一下！','两下！','三下！开赛！','越摸越快！','停？不许停！'],
+    relationship:['你是谁？有吃的吗？','认识了。开玩。','队友！','最强搭档！','我的一口。分你半口。'],
+    idle:['发现目标！','啄一下。','滑倒。没事。','睡五秒。','继续！']
+  }
+});
+})();

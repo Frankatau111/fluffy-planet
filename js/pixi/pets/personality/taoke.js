@@ -1,0 +1,21 @@
+(function(){
+'use strict';
+window.FluffyPersonalities.register({
+  id:'taoke',name:'桃可',traits:{clinginess:48,curiosity:88,mischief:82,reserve:18},activeHours:['morning','day','evening'],likedInteractions:['play','petHead'],dislikedInteractions:['petSpecial'],representativeAction:'巡房间找新鲜事',
+  behaviorWeights:{explore:96,inspectFurniture:88,sneakToy:84,groom:72,pose:65,peek:58},behaviorAnimations:{explore:'groom',inspectFurniture:'groom',sneakToy:'groom',groom:'groom',pose:'groom',peek:'groom'},
+  eventDialogue:{explore:'这间房我还没检查完，跟紧我。',inspectFurniture:'这个柜角的颜色，和我的尾巴还挺搭。',sneakToy:'我只是替玩具检查耐用度，才不是偷玩。',groom:'等一下，尾巴的弧度还差一点。',pose:'这个角度记得拍下来。',peek:'我没有偷看，只是在观察你。'},
+  interactionDialogue:{liked:['不错，这次很懂我的风格。','可以继续，但别压到刘海。'],disliked:['尾巴是艺术品，请保持安全距离。','等等，我刚整理好的造型！']},
+  dialogue:{
+    greeting:['等等等等——你终于来啦！','你刚刚看到我这个角度了吗？','先别说话，看我的新姿势。','你迟到了，但我今天很好看。','欢迎回来，审美搭档。'],
+    time:['早晨的光很适合拍侧脸。','中午出门要选对颜色。','下午是整理尾巴时间。','晚霞跟我的尾尖很搭。','夜里也要漂亮地打哈欠。'],
+    needs:['零食要好看，也要好吃。','口渴会影响我的状态。','无聊！我们制造点剧情。','我的毛沾到灰了，救命。','美容觉也是正经事。'],
+    petHead:['可以摸。','方向还算正确。','刘海不要压扁！','嗯，这次手法不错。','停，我要先照一下镜子。'],
+    petSpecial:['尾巴是艺术品，轻点！','等等，你刚刚是不是摸反了！','别把桃瓣梳成蒲公英。','尾尖可以，根部不行。','它蓬起来不是给你揉乱的。'],
+    feed:['先拍照，再吃。','这颗桃子很懂我的配色。','味道过关，摆盘待改进。','我只尝一口……再一口。','零食拿来，我们再谈失踪的事。'],
+    play:['看好了，我只示范一次！','捉迷藏我从来没输过。','这个球的颜色可以换吗？','追我呀——抓不到！','游戏也要有登场动作。'],
+    repeat:['可以摸，但是别摸乱。','第二次了，你有在数吗？','我感觉发型正在失去秩序。','住手，我要抢救尾巴。','再来我就背对你……偷看。'],
+    relationship:['我们还在审美磨合期。','你夸得很准确，可以加分。','这件事只告诉你一个人。','你失踪好久，我没有生气。','我们的审美友谊保住了。'],
+    idle:['镜子呢？我刚才那个表情绝了。','我从边上探头会不会更有戏？','尾巴转一圈，完美。','这里需要一个闪亮登场。','我没躲，只是在等你找。']
+  }
+});
+})();

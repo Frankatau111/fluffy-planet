@@ -1,0 +1,21 @@
+(function(){
+'use strict';
+window.FluffyPersonalities.register({
+  id:'shuguo',name:'树果',traits:{clinginess:44,curiosity:32,mischief:8,reserve:86},activeHours:['day','evening'],likedInteractions:['sleep','petHead','petSpecial'],dislikedInteractions:['play'],representativeAction:'在窗边慢慢打盹',
+  behaviorWeights:{doze:100,lookWindow:86,slowMove:78,sunbathe:72,stare:62,listen:58},behaviorAnimations:{doze:'doze',lookWindow:'doze',slowMove:'doze',sunbathe:'doze',stare:'doze',listen:'doze'},
+  eventDialogue:{doze:'刚才闭眼不是睡着，是慢慢想事情。',lookWindow:'窗外那片云，走得和我差不多快。',slowMove:'不用急，我最后也会到那里。',sunbathe:'这里暖。再待一会儿。',stare:'我在看你……也可能在发呆。',listen:'安静一点，就能听见叶子翻身。'},
+  interactionDialogue:{liked:['嗯，就这样慢慢待着。','再轻一点，我快睡着了。'],disliked:['一定要跑吗？我可以在这里等你回来。','我负责看球，你负责追。']},
+  dialogue:{
+    greeting:['……嗯？','听到了。','你来了。','坐吧。','这里有位置。'],
+    time:['早。再躺会儿。','今天风很好。','下午……很长。','天暗了。安静。','晚安。先别走。'],
+    needs:['叶子吃完了。','水……在那边吗？','无聊也挺安静。','该洗了。慢慢来。','困。很正常。'],
+    petHead:['嗯。','可以。','再轻一点。','很暖。','我没睡。'],
+    petSpecial:['耳朵会接住风。','这里容易困。','树冠乱了也没关系。','再摸就睡着了。','……已经睡了。'],
+    feed:['叶子。谢谢。','梨也可以。','慢慢吃。','留一片明天。','味道像秋天。'],
+    play:['看球。','看你。','一定要跑吗？','我负责等你回来。','好吧。走三步。'],
+    repeat:['嗯。','还在摸。','要睡了。','真的要睡了。','……呼。'],
+    relationship:['先坐远一点。','安静的人，不讨厌。','靠近也可以。','不用说话。','我在你旁边睡。'],
+    idle:['适合躺着。','这片叶子像云。','刚才只是不想动。','爬到这里就不下去了。','风来了。睡吧。']
+  }
+});
+})();

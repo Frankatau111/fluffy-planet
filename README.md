@@ -1,6 +1,6 @@
-# 绒绒星球 v4.2 — 糯团人格升级
+# 绒绒星球 v4.3 — 五角色独立人格
 
-这是一款五角色同屏的轻养成网页游戏。本版本完整保留金币、等级、亲密度、原有存档、商店、图鉴、任务和探索系统，只为家园中的 PixiJS 糯团增加人格、记忆、主动事件和情境对话。
+这是一款五角色同屏的轻养成网页游戏。本版本完整保留金币、等级、亲密度、原有存档、商店、图鉴、任务和探索系统，为糯团、桃可、牙牙啾、麦朵和树果建立相互独立的人格、行为权重与情境台词。
 
 ## 本地运行
 
@@ -19,13 +19,18 @@ python -m http.server 8765
 - `js/pixi/spriteManager.js`：素材加载、显示层级与头部/耳朵/腹部点击区域。
 - `js/pixi/animation.js`：呼吸、耳朵摆动、随机眨眼、粒子、连续触摸反应和低频主动行为。
 - `js/pixi/pets/nuotuan/state.js`：根据精力、饥饿、亲密关系和最近互动推导视觉状态。
-- `js/pixi/pets/nuotuan/personality.js`：糯团人格特质、主动行为权重、北京时间情境对话和独立陪伴记忆。
+- `js/pixi/pets/personality/core.js`：人格注册、北京时间、关系/状态/事件对话决策和行为加权共享层。
+- `js/pixi/pets/personality/nuotuan.js`：糯团人格、主动事件与独立陪伴记忆。
+- `js/pixi/pets/personality/taoke.js`：桃可的探索、观察家具、偷偷玩玩具等高好奇/高淘气行为。
+- `js/pixi/pets/personality/yayaya.js`：牙牙啾的冲刺、比赛、觅食等高活跃行为。
+- `js/pixi/pets/personality/maiduo.js`：麦朵的整理、检查与照看伙伴行为。
+- `js/pixi/pets/personality/shuguo.js`：树果的睡觉、看窗外和慢动作低活跃行为。
 - `js/pixi/pets/nuotuan/config.js`：数据驱动的状态帧数组、尺寸和 Pixi hitArea。
 - `assets/pets/nuotuan/`：`idle.webp`、`blink.webp`、`sleep.webp`、`happy.webp`、`pet.webp`。
 
 糯团支持 `idle`、`happy`、`sleep`、`pet`、`eat`、`sad`、`excited` 七种状态。素材角色由配置中的 `frames` 数组决定，不在动画代码中绑定文件名；未来加入 `walk_01.webp`、`walk_02.webp` 时只需登记帧路径和 fps。
 
-糯团的人格参数为粘人 90、好奇 70、淘气 40、慢热 20。主动行为会按这些特质加权，并在单次陪伴期间保证出现主动靠近。对话不再对糯团随机抽句，而是根据状态、互动、主动行为、人格阈值和中国本地时间确定性轮换。最近见面、最近互动和最近喂食记录在独立的 `fluffy_nuotuan_memory_v1` 中，不修改游戏原有 `fluffy_planet_v4` 存档结构，也不会产生离线惩罚。
+每个角色配置粘人、好奇、淘气、慢热程度，活跃时段，喜欢/不喜欢的互动，主动行为权重、代表动作和独立的 50 条基础台词。台词根据中国本地时间、状态、关系等级、互动和主动事件确定性轮换，不随机抽句。糯团最近见面、互动和喂食仍记录在独立的 `fluffy_nuotuan_memory_v1` 中，不修改游戏原有 `fluffy_planet_v4` 存档结构。
 
 以后替换 WebP 素材不需要改业务逻辑。要接入桃可、牙牙啾、麦朵或树果，可复制糯团的状态配置和状态机适配器，提供相同语义的状态素材，再由 Pixi 挂载层按角色 ID 选择配置。金币、亲密度和存档层不需要修改。
 

@@ -5,7 +5,13 @@ const localStorage={getItem:key=>data.has(key)?data.get(key):null,setItem:(key,v
 const document={visibilityState:'visible',addEventListener(){},removeEventListener(){}};
 const window={addEventListener(){},removeEventListener(){}};
 const context={window,document,localStorage,Intl,Date,Math,JSON,Object,Number,Set,console};
-vm.runInNewContext(fs.readFileSync('js/pixi/pets/nuotuan/personality.js','utf8'),context);
+for(const file of ['js/pixi/pets/personality/core.js','js/pixi/pets/personality/nuotuan.js','js/pixi/pets/personality/taoke.js','js/pixi/pets/personality/yayaya.js','js/pixi/pets/personality/maiduo.js','js/pixi/pets/personality/shuguo.js'])vm.runInNewContext(fs.readFileSync(file,'utf8'),context);
+
+const ids=['nutuan','taoke','yayajiu','maiduo','shuguo'];
+assert.strictEqual(window.FluffyPersonalities.all().map(p=>p.id).join(','),ids.join(','));
+for(const id of ids){const config=window.FluffyPersonalities.get(id);assert.strictEqual(Object.values(config.dialogue).flat().length,50);assert(config.activeHours.length>=2);assert(config.likedInteractions.length>=2);assert(config.dislikedInteractions.length>=1);assert(Object.keys(config.behaviorWeights).length>=4);assert(config.representativeAction)}
+const firstLines=ids.map(id=>window.FluffyPersonalities.dialogue(id,{action:'petSpecial',relationship:'friend'},[]).text);
+assert.strictEqual(new Set(firstLines).size,5,'characters did not produce independent dialogue');
 
 const personality=new window.NuotuanPersonality.NuotuanPersonality();
 assert.deepStrictEqual({...personality.traits},{clinginess:90,curiosity:70,mischief:40,reserve:20});

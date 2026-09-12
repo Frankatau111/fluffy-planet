@@ -1,11 +1,12 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const store=new Map(),context={console,Date,Math,setTimeout,clearTimeout,window:{},localStorage:{getItem:k=>store.get(k)||null,setItem:(k,v)=>store.set(k,v),removeItem:k=>store.delete(k)}};context.window=context;vm.createContext(context);
-for(const file of ['js/pets.js','js/dialogue.js','js/migration.js','js/state.js','js/relationships.js','js/reactions.js','js/behaviors.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+for(const file of ['js/pets.js','js/migration.js','js/state.js','js/relationships.js','js/pixi/pets/personality/core.js','js/pixi/pets/personality/nuotuan.js','js/pixi/pets/personality/taoke.js','js/pixi/pets/personality/yayaya.js','js/pixi/pets/personality/maiduo.js','js/pixi/pets/personality/shuguo.js','js/dialogue.js','js/reactions.js','js/behaviors.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
 const ids=Array.from(context.FluffyPets.PETS,p=>p.id);assert.strictEqual(ids.join(','),'nutuan,taoke,yayajiu,maiduo,shuguo');
 assert.strictEqual(context.FluffyDialogue.total,250);ids.forEach(id=>assert.strictEqual(context.FluffyDialogue.count(id),50));
 const bird=context.FluffyPets.petSVG('yayajiu');assert.strictEqual((bird.match(/class="wings"/g)||[]).length,1);assert(!/arm|hand|胳膊|手臂/.test(bird));
 const first={};for(const id of ids){const lines=[];for(let i=0;i<3;i++)lines.push(context.FluffyReactions.react(id,'petSpecial').text);assert.strictEqual(new Set(lines).size,3,`${id} recent dialogue repeated`);first[id]=lines.join('|')};assert.strictEqual(new Set(Object.values(first)).size,5);
 const migrated=context.FluffyMigration.migrate({coins:777,level:9,achievements:['a'],owned:['milk'],petId:'corgi'});assert.strictEqual(migrated.coins,777);assert.strictEqual(migrated.level,9);assert.strictEqual(Object.keys(migrated.pets).join(','),ids.join(','));assert.strictEqual(migrated.schema,4);
 assert(context.FluffyRelationships.EVENTS.length>=5);ids.forEach(id=>assert(context.FluffyBehaviors.weights[id].length>=4));
+assert.strictEqual(context.FluffyPersonalities.all().length,5);ids.forEach(id=>{const p=context.FluffyPersonalities.get(id);assert(p.activeHours.length>=2);assert(p.likedInteractions.length>=2);assert(p.dislikedInteractions.length>=1);assert(Object.keys(p.behaviorWeights).length>=4);assert(p.representativeAction)});
 const source=fs.readFileSync('index.html','utf8');for(const file of ['pets','dialogue','migration','state','relationships','reactions','behaviors','animations','app'])assert(source.includes(`./js/${file}.js`));
 console.log(`PASS: ${ids.length} pets, ${context.FluffyDialogue.total} dialogues, migration, memory, behaviors and relationships`);
