@@ -5,7 +5,9 @@ const index=read('index.html');
 const app=read('js/app.js');
 const reaction=read('js/reactions.js');
 const config=read('js/pixi/pets/nuotuan/config.js');
-const scripts=['vendor/pixi.min.js','js/pixi/pets/nuotuan/config.js','js/pixi/scene.js','js/pixi/spriteManager.js','js/pixi/animation.js','js/pixi/app.js'];
+const state=read('js/pixi/pets/nuotuan/state.js');
+const animation=read('js/pixi/animation.js');
+const scripts=['vendor/pixi.min.js','js/pixi/pets/nuotuan/config.js','js/pixi/pets/nuotuan/state.js','js/pixi/scene.js','js/pixi/spriteManager.js','js/pixi/animation.js','js/pixi/app.js'];
 
 let last=-1;
 for(const script of scripts){
@@ -24,6 +26,9 @@ for(const pose of ['idle','blink','sleep','happy','pet']){
 assert(app.includes('data-pixi-pet="nutuan"'),'home lineup does not mount Nuotuan Pixi canvas');
 for(const key of ['mood','energy','hunger','relationship','lastAction','recentActions'])assert(reaction.includes(key),`reaction state misses ${key}`);
 for(const area of ['head','earLeft','earRight','belly'])assert(config.includes(area),`hit area ${area} is missing`);
-assert(read('js/pixi/animation.js').includes('3+Math.random()*5'),'blink interval is not randomized to 3–8 seconds');
+for(const mode of ['idle','happy','sleep','pet','eat','sad','excited'])assert(state.includes(`'${mode}'`),`NuotuanState misses ${mode}`);
+assert(animation.includes('3+Math.random()*5'),'blink interval is not randomized to 3–8 seconds');
+for(const behavior of ['look','yawn','groom','wander','wait'])assert(animation.includes(`'${behavior}'`),`active behavior ${behavior} is missing`);
+assert(config.includes('frames:'),'asset states do not support frame arrays');
 
-console.log('PASS: PixiJS vendor, scene modules, five replaceable poses, hit areas and reaction state');
+console.log('PASS: PixiJS state machine, replaceable assets, hit areas, random blink and active behavior');
