@@ -1,10 +1,10 @@
 (function(){
 'use strict';
 class NuotuanAnimation{
-  constructor(scene,sprites,stateMachine){
-    this.scene=scene;this.sprites=sprites;this.stateMachine=stateMachine;this.mode=stateMachine.current;this.elapsed=0;this.frameElapsed=0;this.stateClock=0;this.autonomyClock=0;this.recoverTimer=0;this.blinkTimer=0;this.blinkActive=false;this.nextBlink=this.randomBlink();this.nextAutonomy=this.randomAutonomy();this.blinkCount=0;this.idleVariationCount=0;this.activeBehaviorCount=0;this.lastReaction='';this.reactionHistory=[];this.particles=[];this.activeBehavior='';this.targetX=0;this.tick=this.tick.bind(this);this.unsubscribe=stateMachine.onChange(e=>this.applyState(e));scene.app.ticker.add(this.tick);this.applyState({state:stateMachine.current,meta:{},reason:'boot'})
+  constructor(scene,sprites,stateMachine,personality,onDialogue){
+    this.scene=scene;this.sprites=sprites;this.stateMachine=stateMachine;this.personality=personality;this.onDialogue=onDialogue;this.mode=stateMachine.current;this.elapsed=0;this.frameElapsed=0;this.stateClock=0;this.autonomyClock=0;this.recoverTimer=0;this.behaviorTimer=0;this.blinkTimer=0;this.blinkActive=false;this.nextBlink=this.randomBlink();this.nextAutonomy=this.randomAutonomy();this.blinkCount=0;this.idleVariationCount=0;this.activeBehaviorCount=0;this.lastReaction='';this.reactionHistory=[];this.activeBehaviorHistory=[];this.personalityDialogueHistory=[];this.particles=[];this.activeBehavior='';this.targetX=0;this.tick=this.tick.bind(this);this.unsubscribe=stateMachine.onChange(e=>this.applyState(e));scene.app.ticker.add(this.tick);this.applyState({state:stateMachine.current,meta:{},reason:'boot'})
   }
-  randomBlink(){return 3+Math.random()*5}randomAutonomy(){return 12+Math.random()*13}
+  randomBlink(){return 3+Math.random()*5}randomAutonomy(){return 16+Math.random()*12}
   resetPose(state){this.sprites.pose(state);const c=this.sprites.character;c.position.set(0,0);c.scale.set(1);c.rotation=0;this.elapsed=0;this.frameElapsed=0}
   applyState(event){clearTimeout(this.recoverTimer);this.mode=event.state;this.resetPose(event.state);const{action,repeat=1}=event.meta||{};
     if(event.state==='sleep'){this.sprites.character.y=18;this.sprites.character.scale.set(1,.93)}
@@ -38,19 +38,25 @@ class NuotuanAnimation{
   eat(){this.lastReaction='eat';this.burstStars(6,0xffd36e);this.recoverTimer=setTimeout(()=>this.stateMachine.transition('happy','eat:complete',{force:true}),1250)}
   burstStars(count,color=0xffd86b){for(let i=0;i<count;i++){const g=new PIXI.Graphics().circle(0,0,5+(i%3)).fill({color,alpha:.95});g.eventMode='none';g.position.set(-80+Math.random()*160,-90+Math.random()*70);g.rotation=Math.random()*Math.PI;this.scene.character.addChild(g);this.particles.push({node:g,vx:-18+Math.random()*36,vy:-35-Math.random()*35,life:.7+Math.random()*.45})}}
   tickParticles(dt){this.particles=this.particles.filter(p=>{p.life-=dt;p.node.x+=p.vx*dt;p.node.y+=p.vy*dt;p.node.rotation+=dt*3;p.node.alpha=Math.max(0,p.life);if(p.life<=0){p.node.destroy();return false}return true})}
-  autonomous(){if(this.mode!=='idle')return;this.autonomyClock=0;this.nextAutonomy=this.randomAutonomy();const choices=['look','yawn','groom','wander','wait'],choice=choices[Math.floor(Math.random()*choices.length)];this.activeBehavior=choice;this.activeBehaviorCount++;this.idleVariationCount++;const c=this.sprites.character;
-    if(choice==='look'){c.x=8;c.scale.x=.985}
-    else if(choice==='yawn'){this.sprites.pose('sleep');c.y=7;c.scale.y=.96}
+  autonomous(){if(this.mode!=='idle')return;const choice=this.personality.chooseBehavior({state:this.mode});this.performBehavior(choice,true)}
+  performBehavior(choice,speak=false){if(this.mode!=='idle')return;clearTimeout(this.behaviorTimer);this.autonomyClock=0;this.nextAutonomy=this.randomAutonomy();this.activeBehavior=choice;this.activeBehaviorCount++;this.idleVariationCount++;this.activeBehaviorHistory.push(choice);this.activeBehaviorHistory=this.activeBehaviorHistory.slice(-12);const c=this.sprites.character;
+    if(choice==='approach'){c.y=-5;c.scale.set(1.09);this.burstStars(3,0xffe6a4)}
+    else if(choice==='explore'){this.targetX=-24+Math.random()*48;c.rotation=this.targetX<0?-.018:.018}
+    else if(choice==='sneakToy'){this.sprites.pose('happy');c.x=-12;c.y=3;c.rotation=-.035}
+    else if(choice==='lookWindow'){c.x=12;c.scale.x=.975;c.rotation=.014}
+    else if(choice==='findTreasure'){this.sprites.pose('pet');c.y=8;c.scale.set(.97,.94)}
     else if(choice==='groom'){this.sprites.pose('pet');c.rotation=-.025}
-    else if(choice==='wander'){this.targetX=-18+Math.random()*36}
     else if(choice==='wait'){c.y=-5;c.scale.set(1.025)}
-    setTimeout(()=>{if(this.mode==='idle'){this.activeBehavior='';this.sprites.pose('idle');c.position.set(0,0);c.scale.set(1);c.rotation=0;this.elapsed=0;this.nextBlink=this.randomBlink()}},1100+Math.random()*900)
+    if(speak)this.speak({behavior:choice,state:this.mode});
+    this.behaviorTimer=setTimeout(()=>{if(this.mode==='idle'){this.activeBehavior='';this.sprites.pose('idle');c.position.set(0,0);c.scale.set(1);c.rotation=0;this.elapsed=0;this.nextBlink=this.randomBlink()}},1400+Math.random()*900)
   }
-  tickAutonomy(dt){if(this.activeBehavior==='wander')this.sprites.character.x+=(this.targetX-this.sprites.character.x)*Math.min(1,dt*3.5)}
-  react(action,result={}){return this.stateMachine.fromInteraction(action,result)}
+  tickAutonomy(dt){if(this.activeBehavior==='explore')this.sprites.character.x+=(this.targetX-this.sprites.character.x)*Math.min(1,dt*3.5);if(this.activeBehavior==='sneakToy')this.sprites.character.rotation+=Math.sin(this.elapsed*9)*.0018}
+  speak(context={}){const line=this.personality.dialogue(context);this.personalityDialogueHistory.push(line.id);this.personalityDialogueHistory=this.personalityDialogueHistory.slice(-12);this.onDialogue?.(line.text,line);return line}
+  opening(event){if(!event)return null;if(event.behavior==='sleep'){this.sprites.pose('sleep');this.sprites.character.y=9;this.sprites.character.scale.y=.95;clearTimeout(this.behaviorTimer);this.behaviorTimer=setTimeout(()=>this.resetPose(this.mode),1900)}else this.performBehavior(event.behavior,false);this.onDialogue?.(event.text,event);return event}
+  react(action,result={}){this.personality.recordInteraction(action);const event=this.stateMachine.fromInteraction(action,result);return{event,line:this.speak({action,repeat:result.repeat,state:event.state})}}
   considerPassive(){if(this.mode==='idle'&&this.autonomyClock>=this.nextAutonomy)this.autonomous()}
-  destroy(){clearTimeout(this.recoverTimer);clearTimeout(this.blinkTimer);this.unsubscribe?.();this.particles.forEach(p=>p.node.destroy());this.scene.app.ticker.remove(this.tick)}
-  debug(){return{mode:this.mode,state:this.stateMachine.debug(),blinkCount:this.blinkCount,idleVariationCount:this.idleVariationCount,activeBehaviorCount:this.activeBehaviorCount,activeBehavior:this.activeBehavior,lastReaction:this.lastReaction,reactionHistory:[...this.reactionHistory],nextBlink:this.nextBlink,nextAutonomy:this.nextAutonomy}}
+  destroy(){clearTimeout(this.recoverTimer);clearTimeout(this.behaviorTimer);clearTimeout(this.blinkTimer);this.unsubscribe?.();this.personality.destroy();this.particles.forEach(p=>p.node.destroy());this.scene.app.ticker.remove(this.tick)}
+  debug(){return{mode:this.mode,state:this.stateMachine.debug(),personality:this.personality.debug(),blinkCount:this.blinkCount,idleVariationCount:this.idleVariationCount,activeBehaviorCount:this.activeBehaviorCount,activeBehavior:this.activeBehavior,activeBehaviorHistory:[...this.activeBehaviorHistory],personalityDialogueHistory:[...this.personalityDialogueHistory],lastReaction:this.lastReaction,reactionHistory:[...this.reactionHistory],nextBlink:this.nextBlink,nextAutonomy:this.nextAutonomy}}
 }
 window.FluffyPixiAnimation={NuotuanAnimation};
 })();
