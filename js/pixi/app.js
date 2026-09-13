@@ -6,7 +6,7 @@ async function mount(options={}){onInteract=options.onInteract||onInteract;onDia
 }
 function react(action,result){return runtime?.animation.react(action,result)}function passive(name){return runtime?.animation.considerPassive(name)}
 function dialogue(context){return runtime?.animation.speak(context)}function forceOpening(){return runtime?.animation.opening(runtime.personality.openingEvent(true))}
-function debugTap(region){const action={head:'petHead',ear:'petSpecial',belly:'petBelly'}[region];if(action)onInteract?.(action)}
-function getDebugState(){if(!runtime)return{mounted:false};return{mounted:true,renderer:runtime.scene.app.renderer.type,layers:Object.keys(runtime.sprites.layers),regions:Object.keys(runtime.sprites.regions),resolvedAssets:Object.fromEntries(Object.keys(window.NuotuanPixiConfig.states).map(s=>[s,runtime.sprites.resolveState(s)])),...runtime.animation.debug()}}
+function debugTap(region){const action={head:'petHead',eyes:'petEyes',ear:'petSpecial',belly:'petBelly',tail:'petTail'}[region];if(action)onInteract?.(action)}
+function getDebugState(){if(!runtime)return{mounted:false};return{mounted:true,renderer:runtime.scene.app.renderer.type,layers:Object.keys(runtime.sprites.layers),parts:Object.keys(runtime.sprites.parts),regions:Object.keys(runtime.sprites.regions),partSources:runtime.sprites.partSources,resolvedAssets:Object.fromEntries(Object.keys(window.NuotuanPixiConfig.states).map(s=>[s,runtime.sprites.resolveState(s)])),...runtime.animation.debug()}}
 window.FluffyPixi={mount,react,passive,dialogue,forceOpening,debugTap,getDebugState};
 })();

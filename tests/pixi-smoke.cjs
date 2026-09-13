@@ -9,7 +9,9 @@ const state=read('js/pixi/pets/nuotuan/state.js');
 const personality=read('js/pixi/pets/personality/nuotuan.js');
 const personalityCore=read('js/pixi/pets/personality/core.js');
 const animation=read('js/pixi/animation.js');
-const scripts=['vendor/pixi.min.js','js/pixi/pets/personality/core.js','js/pixi/pets/personality/nuotuan.js','js/pixi/pets/personality/taoke.js','js/pixi/pets/personality/yayaya.js','js/pixi/pets/personality/maiduo.js','js/pixi/pets/personality/shuguo.js','js/pixi/pets/nuotuan/config.js','js/pixi/pets/nuotuan/state.js','js/pixi/scene.js','js/pixi/spriteManager.js','js/pixi/animation.js','js/pixi/app.js'];
+const partLoader=read('js/pixi/pets/nuotuan/parts/partLoader.js');
+const scheduler=read('js/pixi/lifeScheduler.js');
+const scripts=['vendor/pixi.min.js','js/pixi/pets/personality/core.js','js/pixi/pets/personality/nuotuan.js','js/pixi/pets/personality/taoke.js','js/pixi/pets/personality/yayaya.js','js/pixi/pets/personality/maiduo.js','js/pixi/pets/personality/shuguo.js','js/pixi/pets/nuotuan/config.js','js/pixi/pets/nuotuan/parts/manifest.js','js/pixi/pets/nuotuan/parts/partLoader.js','js/pixi/pets/nuotuan/state.js','js/pixi/lifeScheduler.js','js/pixi/scene.js','js/pixi/spriteManager.js','js/pixi/animation.js','js/pixi/app.js'];
 
 let last=-1;
 for(const script of scripts){
@@ -27,7 +29,7 @@ for(const pose of ['idle','blink','sleep','happy','pet']){
 
 assert(app.includes('data-pixi-pet="nutuan"'),'home lineup does not mount Nuotuan Pixi canvas');
 for(const key of ['mood','energy','hunger','relationship','lastAction','recentActions'])assert(reaction.includes(key),`reaction state misses ${key}`);
-for(const area of ['head','earLeft','earRight','belly'])assert(config.includes(area),`hit area ${area} is missing`);
+for(const area of ['head','eyes','earLeft','earRight','belly','tail'])assert(config.includes(area),`hit area ${area} is missing`);
 for(const mode of ['idle','happy','sleep','pet','eat','sad','excited'])assert(state.includes(`'${mode}'`),`NuotuanState misses ${mode}`);
 assert(animation.includes('3+Math.random()*5'),'blink interval is not randomized to 3–8 seconds');
 for(const trait of ['clinginess:90','curiosity:70','mischief:40','reserve:20'])assert(personality.includes(trait),`personality trait ${trait} is missing`);
@@ -37,5 +39,12 @@ assert(personalityCore.includes("timeZone:'Asia/Shanghai'"),'personality dialogu
 assert(personality.includes("fluffy_nuotuan_memory_v1"),'personality memory must use its own storage key');
 assert(!personality.includes('fluffy_planet_v4'),'personality layer must not write the existing game save');
 assert(config.includes('frames:'),'asset states do not support frame arrays');
+for(const part of ['body','head','eyes_open','eyes_close','mouth','ear_left','ear_right','arms','tail','accessories'])assert(partLoader.includes(`'${part}'`)||partLoader.includes(`${part}:`),`PetContainer part ${part} is missing`);
+for(const behavior of ['look_player','stretch','clean','curious','sleep'])assert(scheduler.includes(`'${behavior}'`),`Life Scheduler behavior ${behavior} is missing`);
+assert(scheduler.includes('minDelay=Number(options.minDelay||10)')&&scheduler.includes('maxDelay=Number(options.maxDelay||30)'),'Life Scheduler is not constrained to 10–30 seconds');
+assert(animation.includes('1-cycle*.02'),'idle breathing does not reach body scaleY 0.98');
+assert(animation.includes('5*Math.PI/180'),'ear motion is not constrained to ±5 degrees');
+assert(animation.includes('100+Math.random()*100'),'blink is not constrained to 100–200ms');
+assert(animation.includes("startTransition(from,target,.5)"),'state changes do not use a 0.5 second blend');
 
-console.log('PASS: PixiJS state machine, personality, memory, contextual dialogue and active behavior');
+console.log('PASS: PixiJS PetContainer, PartLoader, life animation, scheduler, state blend and interactions');

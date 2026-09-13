@@ -8,7 +8,7 @@ class NuotuanState{
     if(action==='sleep'||s.energy<22)return'sleep';
     if(s.hunger<22)return'sad';
     if(action==='feed')return'eat';
-    if(['petHead','petSpecial','petBelly'].includes(action))return'pet';
+    if(['petHead','petEyes','petSpecial','petBelly','petTail'].includes(action))return'pet';
     if(action==='play'&&s.energy>30)return'excited';
     if(context.loveGain>0||(recent&&s.relationship>=60))return'happy';
     return'idle'}

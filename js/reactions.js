@@ -1,7 +1,7 @@
 (function(){
 const clamp=n=>Math.max(0,Math.min(100,n));
-const effects={feed:{coins:-8,xp:5,love:3,hunger:18},play:{xp:6,love:2,fun:20,energy:-8},clean:{xp:4,love:2,clean:22},sleep:{xp:3,love:1,energy:30},petHead:{xp:3,love:2,fun:4},petSpecial:{xp:4,love:2,fun:5},petBelly:{xp:3,love:1,fun:3}};
-const areas={petHead:'head',petSpecial:'special',petBelly:'body'};
+const effects={feed:{coins:-8,xp:5,love:3,hunger:18},play:{xp:6,love:2,fun:20,energy:-8},clean:{xp:4,love:2,clean:22},sleep:{xp:3,love:1,energy:30},petHead:{xp:3,love:2,fun:4},petEyes:{xp:3,love:2,fun:4},petSpecial:{xp:4,love:2,fun:5},petBelly:{xp:3,love:1,fun:3},petTail:{xp:3,love:1,fun:3}};
+const areas={petHead:'head',petEyes:'head',petSpecial:'special',petBelly:'body',petTail:'special'};
 function time(){const h=new Date().getHours();return h<6||h>=21?'night':h<10?'morning':h<17?'day':'evening'}
 function relationship(love){return love<20?'low':love<40?'familiar':love<60?'friend':love<80?'close':'partner'}
 function moodOf(state){if(state.needs.energy<25)return'sleepy';if(state.needs.hunger<25)return'hungry';if(state.love>=80)return'attached';return state.lastMood||'calm'}
